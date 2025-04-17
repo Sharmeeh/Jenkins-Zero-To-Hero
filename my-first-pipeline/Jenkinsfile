@@ -1,8 +1,13 @@
 pipeline {
-  agent {
-    docker { image 'node:16-alpine' }
-  }
+  agent any 
   stages {
+    stage('Build docker image') {
+      steps {
+        script{
+          dockerImage = docker.Build("node:16-alpine")
+        }
+      }
+    }
     stage('Test') {
       steps {
         sh 'node --version'
